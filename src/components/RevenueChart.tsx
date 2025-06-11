@@ -27,16 +27,6 @@ ChartJS.register(
 	Legend
 );
 
-const tooltipBg = getComputedStyle(document.documentElement)
-	.getPropertyValue("--tooltip-bg")
-	.trim();
-const tooltipTitleColor = getComputedStyle(document.documentElement)
-	.getPropertyValue("--tooltip-title-color")
-	.trim();
-const tooltipBodyColor = getComputedStyle(document.documentElement)
-	.getPropertyValue("--tooltip-body-color")
-	.trim();
-
 const RevenueChart = () => {
 	const { monthlyCardData } = useCardStore();
 	const [showCurrentYear, setShowCurrentYear] = useState(true);
@@ -76,13 +66,13 @@ const RevenueChart = () => {
 		responsive: true,
 		maintainAspectRatio: false,
 		plugins: {
+			datalabels: {
+				display: false,
+			},
 			legend: {
 				display: false,
 			},
 			tooltip: {
-				backgroundColor: tooltipBg,
-				titleColor: tooltipTitleColor,
-				bodyColor: tooltipBodyColor,
 				callbacks: {
 					label: (context: TooltipItem<"bar" | "line">) => {
 						const rawValue = context.raw as number;
