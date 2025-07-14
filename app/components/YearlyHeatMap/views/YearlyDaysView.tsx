@@ -6,7 +6,8 @@ import {
 import { useHeatmapData } from "../../../hooks/useHeatmapData";
 
 export const YearlyDaysView = () => {
-	const { data, selectedYear, setSelectedMonth } = useHeatmapData();
+	const { data, selectedYear, setSelectedMonth, setViewMode } =
+		useHeatmapData();
 
 	return (
 		<div className="p-4 sm:p-8 overflow-x-auto">
@@ -22,7 +23,10 @@ export const YearlyDaysView = () => {
 					return (
 						<div
 							key={month}
-							onClick={() => setSelectedMonth(monthIndex)}
+							onClick={() => {
+								setSelectedMonth(monthIndex);
+								setViewMode("monthly");
+							}}
 							className="cursor-pointer"
 						>
 							<p className="text-xs sm:text-sm text-center mb-3">{month}</p>

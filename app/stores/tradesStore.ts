@@ -1,3 +1,5 @@
+'use client'
+
 import { create } from "zustand";
 import { MdSwapHoriz, MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { RiFilePaper2Line } from "react-icons/ri";

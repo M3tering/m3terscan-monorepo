@@ -17,6 +17,7 @@ export const MonthlyView = () => {
 	if (selectedMonth === null) return null;
 
 	const monthData = getMonthData(data, selectedMonth);
+
 	const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
 	const firstDayOfWeek = new Date(selectedYear, selectedMonth, 1).getDay();
 

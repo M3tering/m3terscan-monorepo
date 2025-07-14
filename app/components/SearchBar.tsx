@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { BiSearch } from "react-icons/bi";
 import { useBlockStore } from "../stores/blockStore";
@@ -12,8 +12,7 @@ type SearchBarProps = {
 };
 
 const SearchBar = ({ placeholder, onLocationSelect }: SearchBarProps) => {
-
-	const pathname = usePathname()
+	const pathname = usePathname();
 	const isHomeRoute = pathname === "/";
 
 	const { searchBlocks, clearSearch, filteredData, blockData } =
@@ -73,7 +72,7 @@ const SearchBar = ({ placeholder, onLocationSelect }: SearchBarProps) => {
 					onKeyDown={handleKeyDown}
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-					className="w-full pl-10 pr-4 py-2 rounded-lg bg-[var(--background-secondary)]"
+					className="w-full pl-10 pr-4 py-2 rounded-lg bg-[var(--background-secondary)] focus:ring  focus:outline-none"
 				/>
 			</div>
 
@@ -84,22 +83,27 @@ const SearchBar = ({ placeholder, onLocationSelect }: SearchBarProps) => {
 						{blocksToShow.map((block) => (
 							<li
 								key={block.number}
-								className="px-4 py-2 hover:bg-[var(--background-secondary)] transition-colors rounded cursor-pointer"
+								className="px-4 py-2 hover:bg-[var(--background-secondary)] transition-colors rounded cursor-pointer "
 							>
-								<Link href={`/meter/${block.meterId}/chart`}>
+								<Link href={`/m3ters/${block.meterId}/charts`}>
 									<div className="flex justify-between">
-										<span className="font-medium">Block {block.number}</span>
-										<span className="text-sm">{block.proposer}</span>
+										<span className="font-medium text-[var(--text)] ">
+											Block {block.number}
+										</span>
+										<span className="text-sm text-[var(--text-secondary)]">
+											{block.proposer}
+										</span>
 									</div>
-									<div className="flex justify-between text-xs mt-1">
+									<div className="flex justify-between text-xs mt-1 text-[var(--text)]">
 										<span>
 											{block.date} {block.time}
 										</span>
 										<span
-											className={`px-2 py-0.5 rounded ${block.status === "Successful"
+											className={`px-2 py-0.5 rounded ${
+												block.status === "Successful"
 													? "text-[var(--color-success)]"
 													: "text-[var(--color-invalid)]"
-												}`}
+											}`}
 										>
 											{block.status}
 										</span>

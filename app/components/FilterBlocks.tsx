@@ -69,7 +69,7 @@ export default function FilterBlocks({
 									value={status === "All" ? "" : status}
 									checked={filters.status === (status === "All" ? "" : status)}
 									onChange={onFilterChange}
-									className="accent-[var(--icon-color)] outline-none"
+									className="accent-[var(--icon-color)] outline-none focus:ring "
 								/>
 								<span>{status}</span>
 							</label>
@@ -85,7 +85,7 @@ export default function FilterBlocks({
 						value={filters.proposer}
 						onChange={onFilterChange}
 						placeholder="Type in name"
-						className="w-full px-3 py-2 text-sm bg-[var(--background-secondary)] rounded-md "
+						className="w-full px-3 py-2 text-sm bg-[var(--background-secondary)] rounded-md focus:ring"
 					/>
 				</div>
 

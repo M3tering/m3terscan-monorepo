@@ -1,12 +1,22 @@
-'use client'
+"use client";
 
 import { useActivityStore } from "../../../stores/activityStore";
 import { formatAddress } from "../../../utils/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaSliders } from "react-icons/fa6";
+import { ActivityFilter } from "../../../components/ActivityFilter";
+
+const convertFilterToHours = (label: string): number => {
+	const match = label.match(/(\d+)(hrs|days)/);
+	if (!match) return Infinity;
+	const value = parseInt(match[1]);
+	return match[2] === "days" ? value * 24 : value;
+};
 
 const Activity = () => {
-	const activities = useActivityStore((state) => state.activities);
+	const { activities, filter } = useActivityStore();
+	const maxHours = convertFilterToHours(filter);
+
+	const filtered = activities.filter((a) => a.hoursAgo <= maxHours);
 
 	if (activities.length === 0) {
 		return <p className="text-center py-4">No recent activity.</p>;
@@ -17,7 +27,7 @@ const Activity = () => {
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
-			className=" p-4"
+			className=" md:p-4 pb-10"
 		>
 			<div className="flex items-center justify-between mb-4">
 				<motion.h3
@@ -28,10 +38,17 @@ const Activity = () => {
 					Activity
 				</motion.h3>
 
-				<FaSliders className=" hover:text-[var(--icon-color)] transition-colors cursor-pointer" />
+				<ActivityFilter />
 			</div>
 
-			<div className="overflow-x-auto">
+			<div
+				className="overflow-x-auto"
+				style={{
+					scrollbarWidth: "none",
+					msOverflowStyle: "none",
+					scrollBehavior: "smooth",
+				}}
+			>
 				<table className="w-full text-left text-sm">
 					<thead>
 						<tr className="bg-[var(--background-secondary)] text-[var(--icon-color)]">
@@ -44,7 +61,7 @@ const Activity = () => {
 					</thead>
 					<tbody>
 						<AnimatePresence>
-							{activities.map((item, index) => (
+							{filtered.map((item, index) => (
 								<motion.tr
 									key={index}
 									initial={{ opacity: 0, y: 10 }}

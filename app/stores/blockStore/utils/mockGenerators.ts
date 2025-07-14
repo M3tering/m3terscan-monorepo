@@ -23,7 +23,7 @@ export const generateHourlyEnergyUsage = (
 	uniqueMeterIds.forEach((meterId) => {
 		const meterBlocks = blocks.filter((block) => block.meterId === meterId);
 		const activityLevel = meterBlocks.length / blocks.length;
-		const baseUsage = 5 + activityLevel * 20;
+		const baseUsage = 10 + activityLevel * 20;
 
 		const date = meterBlocks[0]?.date || "2025-01-01"; // Fallback date
 
@@ -153,30 +153,73 @@ export const generateMockHeatmapDataByYear = (
 			);
 		});
 
-		const activityLevel = Math.min(dayBlocks.length * 30, 100);
+		// Create more realistic activity values
+		let activityValue = 0;
 
-		dayBlocks.forEach((block) => {
+		if (dayBlocks.length > 0) {
+			// If we have actual blocks for this day, use them
+			activityValue = Math.min(dayBlocks.length * 25, 100);
+		} else {
+			// Generate some random activity for days without blocks to make the heatmap more interesting
+			// Create patterns: weekdays have more activity, weekends less
+			const dayOfWeek = date.getDay();
+			const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+			const baseActivity = isWeekend ? 0.1 : 0.3;
+
+			// Add some seasonal variation
+			const month = date.getMonth();
+			const seasonalMultiplier = 1 + 0.3 * Math.sin((month / 11) * Math.PI);
+
+			// Add some randomness
+			const randomFactor = 0.5 + Math.random() * 0.5;
+
+			activityValue = Math.floor(
+				baseActivity * seasonalMultiplier * randomFactor * 100
+			);
+		}
+
+		// Create entries for each meter or a general entry
+		if (meterId) {
+			// For specific meter, create one entry
 			data.push({
 				date: date.toISOString().split("T")[0],
 				month: date.getMonth(),
 				day: date.getDate(),
 				weekday: date.getDay(),
 				week: Math.ceil(date.getDate() / 7),
-				meterId: block.meterId,
-				value: Math.floor(activityLevel * 100),
+				meterId: meterId,
+				value: activityValue,
 			});
-		});
+		} else {
+			// For all meters view, create entries for each unique meter
+			const uniqueMeterIds = Array.from(
+				new Set(filteredBlocks.map((block) => block.meterId))
+			);
 
-		if (dayBlocks.length === 0) {
-			data.push({
-				date: date.toISOString().split("T")[0],
-				value: 0,
-				month: date.getMonth(),
-				day: date.getDate(),
-				weekday: date.getDay(),
-				week: Math.ceil(date.getDate() / 7),
-				meterId: meterId || "",
-			});
+			if (uniqueMeterIds.length > 0) {
+				uniqueMeterIds.forEach((meterId) => {
+					data.push({
+						date: date.toISOString().split("T")[0],
+						month: date.getMonth(),
+						day: date.getDate(),
+						weekday: date.getDay(),
+						week: Math.ceil(date.getDate() / 7),
+						meterId: meterId,
+						value: activityValue,
+					});
+				});
+			} else {
+				// Fallback for when no meters are available
+				data.push({
+					date: date.toISOString().split("T")[0],
+					month: date.getMonth(),
+					day: date.getDate(),
+					weekday: date.getDay(),
+					week: Math.ceil(date.getDate() / 7),
+					meterId: "",
+					value: activityValue,
+				});
+			}
 		}
 	}
 

@@ -122,6 +122,14 @@ const EnergyUsageChart = () => {
 							},
 						},
 						tooltip: {
+							backgroundColor: "var(--background-secondary)",
+							// titleColor: "var(--text)",
+							// bodyColor: "var(--text)",
+							borderColor: "var(--icon-color)",
+							borderWidth: 1,
+							padding: 12,
+							cornerRadius: 4,
+							// displayColors: false,
 							callbacks: {
 								label: (context) => {
 									const value = context.parsed.y;

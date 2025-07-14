@@ -6,7 +6,7 @@ import {
 import { useHeatmapData } from "../../../hooks/useHeatmapData";
 
 export const YearlyWeeksView = () => {
-	const { data, setSelectedMonth } = useHeatmapData();
+	const { data, setSelectedMonth, setViewMode } = useHeatmapData();
 
 	return (
 		<div className="rounded-2xl p-4 sm:p-8 overflow-x-auto">
@@ -17,14 +17,16 @@ export const YearlyWeeksView = () => {
 					return (
 						<div
 							key={month}
-							onClick={() => setSelectedMonth(monthIndex)}
+							onClick={() => {
+								setSelectedMonth(monthIndex);
+								setViewMode("monthly");
+							}}
 							className="cursor-pointer transition-all duration-200 hover:scale-105"
 						>
 							<p className="text-xs sm:text-sm text-center mb-3">{month}</p>
 							<div className="space-y-1 sm:space-y-2 flex flex-col">
 								{weeks.map((week) => {
 									const avgValue = getWeekAverage(data, monthIndex, week);
-									console.log("Week Average Value:", avgValue);
 
 									return (
 										<div

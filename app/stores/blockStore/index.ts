@@ -216,6 +216,7 @@ export const useBlockStore = create<BlockStore>((set, get) => {
 				set({
 					allHourlyEnergyUsage: mockData,
 					hourlyEnergyUsage: filteredData,
+					meterEnergyUsage: filteredData,
 					error: null,
 				});
 				return;
@@ -224,11 +225,13 @@ export const useBlockStore = create<BlockStore>((set, get) => {
 			set({ isLoading: true, error: null });
 			try {
 				const apiEnergyData = await fetchEnergyUsageFromApi(targetMeterId);
+				const filteredData = targetMeterId
+					? apiEnergyData.filter((usage) => usage.meterId === targetMeterId)
+					: [];
 				set({
 					allHourlyEnergyUsage: apiEnergyData,
-					hourlyEnergyUsage: targetMeterId
-						? apiEnergyData.filter((usage) => usage.meterId === targetMeterId)
-						: [],
+					hourlyEnergyUsage: filteredData,
+					meterEnergyUsage: filteredData,
 					isLoading: false,
 					error: null,
 				});

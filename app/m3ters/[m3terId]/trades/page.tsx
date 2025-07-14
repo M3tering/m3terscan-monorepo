@@ -1,14 +1,16 @@
+'use client';
+
 import { useState } from "react";
-import { useTradesStore } from "../stores/tradesStore";
+import { useTradesStore } from "../../../stores/tradesStore";
 import { motion, AnimatePresence } from "framer-motion";
-import { formatAddress } from "../utils/formatAddress";
+import { formatAddress } from "../../../utils/formatAddress";
 
 const itemVariants = {
 	hidden: { opacity: 0, y: 20 },
 	visible: { opacity: 1, y: 0 },
 	exit: { opacity: 0, y: -20 },
 };
-
+``
 const Trades = () => {
 	const trades = useTradesStore((state) => state.trades);
 	const [showAll, setShowAll] = useState(false);
@@ -16,7 +18,7 @@ const Trades = () => {
 	const visibleTrades = showAll ? trades : trades.slice(0, 5);
 
 	return (
-		<section className="flex flex-col items-center justify-center p-4">
+		<section className="flex flex-col items-center justify-center p-4 pb-10">
 			<motion.div
 				initial={{ opacity: 0, scale: 0.95 }}
 				animate={{ opacity: 1, scale: 1 }}
