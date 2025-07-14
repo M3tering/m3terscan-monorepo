@@ -54,16 +54,8 @@ const ThemeToggle = () => {
 	];
 
 	const currentIcon = {
-		light: (
-			<motion.div animate={{ rotate: 0 }}>
-				<FiSun size={20} />
-			</motion.div>
-		),
-		dark: (
-			<motion.div animate={{ rotate: 180 }}>
-				<FiMoon size={20} />
-			</motion.div>
-		),
+		light: <FiSun size={20} />,
+		dark: <FiMoon size={20} />,
 		system: <FiMonitor size={20} />,
 	}[theme];
 

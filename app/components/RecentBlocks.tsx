@@ -139,7 +139,7 @@ export default function RecentBlocks() {
 												variants={rowVariants}
 												key={index}
 												onClick={() =>
-													navigate.push(`/meter/${block.meterId}/chart`)
+													navigate.push(`/m3ters/${block.meterId}/charts`)
 												}
 												className="text-sm hover:bg-[var(--background-secondary)] transition-colors"
 											>

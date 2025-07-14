@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
@@ -7,19 +7,17 @@ import ThemeToggle from "./ThemeToggle";
 import { useMapStore } from "../stores/mapStore";
 
 const Header = () => {
-
-	const pathname = usePathname()
+	const pathname = usePathname();
 
 	// Show search bar only on these base paths
-	const showSearchBarPaths = ["/", "/meter"];
+	const showSearchBarPaths = ["/", "/m3ters"];
 
 	// Hide search bar on these specific subpaths
 	const hideSearchBarSubpaths = ["chart", "trades", "activity", "ask-ai"];
 
 	// Check if current path starts with allowed base path
 	const isAllowedBasePath = showSearchBarPaths.some(
-		(path) =>
-			pathname === path || pathname.startsWith(`${path}/`)
+		(path) => pathname === path || pathname.startsWith(`${path}/`)
 	);
 
 	// Check if current path contains any forbidden subpath

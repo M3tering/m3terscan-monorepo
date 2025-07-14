@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import MapComponent from "../../../components/MapComponent";
 import { FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
@@ -36,26 +36,32 @@ const Overview = () => {
 			{/* Info Bar */}
 			{locationInfo && (
 				<motion.div
-					className="flex flex-wrap justify-around items-center gap-4 mt-4 text-sm font-medium bg-[var(--background-primary)] py-5 rounded-t-lg w-11/12 mx-auto "
+					className="flex flex-wrap justify-around items-center gap-4 mt-4 text-sm font-medium bg-[var(--background-primary)] py-5 rounded-t-lg w-11/12 mx-auto text-[var(--icon-color)] "
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, delay: 0.3 }}
 				>
 					<div className="flex items-center gap-1">
-						<FaMapMarkerAlt className="text-orange-500" />
-						<span>Lon {locationInfo.lng.toFixed(4)}</span>
+						<FaMapMarkerAlt />
+						<span className="text-[var(--text)]">
+							Lon {locationInfo.lng.toFixed(4)}
+						</span>
 					</div>
 					<div className="flex items-center gap-1">
-						<MdOutlineGpsFixed className="text-orange-500" />
-						<span>Lat {locationInfo.lat.toFixed(4)}</span>
+						<MdOutlineGpsFixed />
+						<span className="text-[var(--text)]">
+							Lat {locationInfo.lat.toFixed(4)}
+						</span>
 					</div>
 					<div className="flex items-center gap-1">
-						<FaBriefcase className="text-orange-500" />
-						<span>Commercial</span>
+						<FaBriefcase />
+						<span className="text-[var(--text)]">Commercial</span>
 					</div>
 					<div className="flex items-center gap-1">
-						<FiClock className="text-orange-500" />
-						<span>{formatDateTime(locationInfo.dateTime)}</span>
+						<FiClock />
+						<span className="text-[var(--text)]">
+							{formatDateTime(locationInfo.dateTime)}
+						</span>
 					</div>
 				</motion.div>
 			)}
@@ -94,4 +100,3 @@ const Overview = () => {
 };
 
 export default Overview;
-

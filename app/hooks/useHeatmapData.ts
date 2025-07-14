@@ -20,13 +20,10 @@ export const useHeatmapData = () => {
 		fetchHeatmapData(selectedMeterId || undefined);
 	}, [fetchHeatmapData, selectedMeterId]);
 
-	// useEffect(() => {
-	// 	// Convert null to undefined for the generateHeatmapData function
-	// 	const meterIdParam = selectedMeterId === null ? undefined : selectedMeterId;
-	// 	generateHeatmapData(heatmapSelectedYear, meterIdParam);
-	// }, [generateHeatmapData, heatmapSelectedYear, selectedMeterId]);
-
-	console.log(heatmapData[0]);
+	// Filter heatmapData by selectedMeterId if set
+	// const filteredData = selectedMeterId
+	// 	? heatmapData.filter((item) => item.meterId === selectedMeterId)
+	// 	: heatmapData;
 
 	return {
 		refreshHeatmapData,
